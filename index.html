@@ -71,10 +71,10 @@
 
             reader.onload = async function(event) {
                 const content = event.target.result;
-                const response = await fetch('https://api.github.com/repos/<twoje_uzytkownik>/<twoje_repo>/contents/' + customPath, {
+                const response = await fetch('https://api.github.com/repos/Loksy0/<twoje_repo>/contents/' + customPath, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': 'token <twoj_github_token>',
+                        'Authorization': 'token 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',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -85,9 +85,10 @@
                 });
 
                 if (response.ok) {
-                    result.textContent = `Plik został hostowany pod: https://<twoje_uzytkownik>.github.io/<twoje_repo>/${customPath}`;
+                    result.textContent = `Plik został hostowany pod: https://Loksy0.github.io/<twoje_repo>/${customPath}`;
                 } else {
-                    result.textContent = 'Wystąpił błąd podczas hostowania pliku.';
+                    const errorData = await response.json();
+                    result.textContent = `Wystąpił błąd podczas hostowania pliku: ${errorData.message}`;
                 }
             };
 
